@@ -43,6 +43,16 @@ public class Kudomon{
     return this.yCoord;
   }// getY
 
+  // accessor method to return species
+  public String getSpecies(){
+    return this.species;
+  }// getSpecies
+
+  // accessor method to return type
+  public String getType(){
+    return this.type;
+  }// getType
+
   // mutator method to set x coordinate
   public void setX(int requiredX){
     this.xCoord = requiredX;

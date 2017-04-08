@@ -54,7 +54,7 @@ public class Grid{
       trainerCell.setTrainer(requiredTrainer);
   }// addTrainer
 
-  /* Method to find kudomon which are in a 10 or less units away from the
+  /* Method to find kudomon which are 10 or less units away from the
   trainer. Method reutrns an ArrayList */
   public static ArrayList<Kudomon> findNearbyKudomon(Trainer requiredTrainer){
     ArrayList<Kudomon> listOfNearbyKudomon = new ArrayList<Kudomon>();

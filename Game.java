@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-// This is calls is used to model an interactive game.
+// This class is used to model an interactive game.
 public class Game{
 
   //an action to allow a trainer to catch a kudomon
@@ -23,20 +23,42 @@ public class Game{
          to the kudomon */
       Scanner input = new Scanner(System.in);
       System.out.print("Enter your choice: ");
-      int optionCatch = input.nextInt();
+      int optionCatch = Integer.parseInt(input.nextLine());
 
       // store the kudomon trainer wants to catch in a variable
       Kudomon kudomonToCatch = listOfNearbyKudomon.get(optionCatch-1);
-      // add the kudomon to the trainer's collection
-      requiredTrainer.catchKudomon(kudomonToCatch);
-      // clear the cell in which the kudomon exists
-      Grid.clearKudomonCell(kudomonToCatch);
-      System.out.println();
-      // print out the kudomon that was caught
-      System.out.println("You caught "+kudomonToCatch);
-      /* add some more kudomon to the grid so that there the chances of more
-         kudomon appearing nearby are higher */
-      addKudomon();
+
+      /* if 2 people try to catch the same kudomon, the trainer that types
+         out the species and type of the kudomon first is allowed to capture
+         the kudomon */
+      System.out.print("Type out the species and type of the kudomon "+
+                        "separated by a space: ");
+      String speciesType = input.nextLine();
+      String[] arraySpeciesType = speciesType.split(" ");
+
+      String species = arraySpeciesType[0];
+      String type = arraySpeciesType[1];
+      System.out.println(species+" "+type);
+
+      boolean enteredCorrectly = (species.equals(kudomonToCatch.getSpecies())) &
+                                 (type.equals(kudomonToCatch.getType()));
+
+      if (enteredCorrectly){
+        // add the kudomon to the trainer's collection
+        requiredTrainer.catchKudomon(kudomonToCatch);
+        // clear the cell in which the kudomon exists
+        Grid.clearKudomonCell(kudomonToCatch);
+        System.out.println();
+        // print out the kudomon that was caught
+        System.out.println("You caught "+kudomonToCatch);
+        /* add some more kudomon to the grid so that there the chances of more
+           kudomon appearing nearby are higher */
+        addKudomon();
+      }//if
+
+      else
+        System.out.println("You could not catch that kudomon");
+
     }// if
 
     else
@@ -132,7 +154,6 @@ public class Game{
     addKudomon();
     addKudomon();
 
-
     //add trainer to the grid
     Trainer trainer  = new Trainer();
     Grid.addTrainer(trainer);
@@ -150,7 +171,7 @@ public class Game{
       System.out.println("What would you like to do?");
       System.out.println("1 - Catch Kudomon");
       System.out.println("2 - Kudomons Fight");
-      System.out.println("99 - Exit");
+      System.out.println("3 - Exit");
 
       /* ask the user to enter the number that corresponds to the action
          that the user wants to perform */
@@ -168,9 +189,6 @@ public class Game{
         default: System.out.println("Invalid choice!");
                  break;
       }// switch
-
     }// while
-
   }// main
-
 }// Game
