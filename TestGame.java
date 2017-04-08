@@ -1,48 +1,8 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-// This is calls is used to model an interactive game.
-public class Game{
-
-  //an action to allow a trainer to catch a kudomon
-  public static void catchKudomon(Trainer requiredTrainer){
-
-    /* A list of nearby kudomon is returned by the function with the same name
-       in the grid class */
-    ArrayList<Kudomon> listOfNearbyKudomon = Grid.findNearbyKudomon(requiredTrainer);
-
-    // if the list contains nearby kudomons
-    if (listOfNearbyKudomon.size() != 0){
-      // display all the kudomons in the list
-      System.out.println("Which Kudomon do you want to catch?");
-      for (int index=0; index<listOfNearbyKudomon.size(); index++){
-        System.out.println((index+1)+" - "+listOfNearbyKudomon.get(index));
-      }//for
-
-      /* create a scanner object which lets user input the number corresponding
-         to the kudomon */
-      Scanner input = new Scanner(System.in);
-      System.out.print("Enter your choice: ");
-      int optionCatch = input.nextInt();
-
-      // store the kudomon trainer wants to catch in a variable
-      Kudomon kudomonToCatch = listOfNearbyKudomon.get(optionCatch-1);
-      // add the kudomon to the trainer's collection
-      requiredTrainer.catchKudomon(kudomonToCatch);
-      // clear the cell in which the kudomon exists
-      Grid.clearKudomonCell(kudomonToCatch);
-      System.out.println();
-      // print out the kudomon that was caught
-      System.out.println("You caught "+kudomonToCatch);
-      /* add some more kudomon to the grid so that there the chances of more
-         kudomon appearing nearby are higher */
-      addKudomon();
-    }// if
-
-    else
-      // if no kudomon nearby, then add kudomon to the grid
-      addKudomon();
-  }// catchKudomon
+// This class is used for testing purposes, execute the shell script 'run-tests'
+public class TestGame{
 
   // a method to add kudomons to the grid
   public static void addKudomon(){
@@ -113,13 +73,8 @@ public class Game{
         kudomonToAttackSecond.inflictDamage(kudomonToAttackFirst);
         if (kudomonToAttackFirst.getHealth() <= 0)
           System.out.println(kudomonToAttackSecond+" has won!");
-
       }// while
     }// if
-
-    else
-      System.out.println("You don't have kudomons. Try catching some first");
-
   }// kudomonFight
 
   public static void main(String[] args){
@@ -132,45 +87,35 @@ public class Game{
     addKudomon();
     addKudomon();
 
-
     //add trainer to the grid
     Trainer trainer  = new Trainer();
     Grid.addTrainer(trainer);
     System.out.println(trainer);
 
-    // create a scanner object
-    Scanner input = new Scanner(System.in);
+    // add some kudomons to the trainer's collection
+    Kudomon kudomon;
+    kudomon = new Kudomon("Sourbulb","grass", 6);
+    trainer.catchKudomon(kudomon);
 
-    boolean gameIsRunning = true;
+    kudomon = new Kudomon("Mancharred","fire", 8);
+    trainer.catchKudomon(kudomon);
 
-    // a loop that executes as long as the above boolean value is true.
-    while (gameIsRunning){
-      // print out all the actions that a trainer can perform
-      System.out.println();
-      System.out.println("What would you like to do?");
-      System.out.println("1 - Catch Kudomon");
-      System.out.println("2 - Kudomons Fight");
-      System.out.println("99 - Exit");
+    kudomon = new Kudomon("Chipaku","electric", 2);
+    trainer.catchKudomon(kudomon);
 
-      /* ask the user to enter the number that corresponds to the action
-         that the user wants to perform */
-      System.out.print("Enter your choice: ");
-      int option = input.nextInt();
-      System.out.println();
+    kudomon = new Kudomon("Blastoise","water", 10);
+    trainer.catchKudomon(kudomon);
 
-      switch (option){
-        case 1: catchKudomon(trainer);
-                break;
-        case 2: kudomonFight(trainer);
-                break;
-        case 99: gameIsRunning = false;
-                 break;
-        default: System.out.println("Invalid choice!");
-                 break;
-      }// switch
+    kudomon = new Kudomon("Shrewsand","rock", 4);
+    trainer.catchKudomon(kudomon);
 
-    }// while
+    kudomon = new Kudomon("Mewtwo","psychic",12);
+    trainer.catchKudomon(kudomon);
+
+    // any 2 kudomons fight each other 
+    kudomonFight(trainer);
 
   }// main
+
 
 }// Game

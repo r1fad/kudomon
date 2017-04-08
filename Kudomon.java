@@ -15,11 +15,22 @@ public class Kudomon{
   // to store the y coordinate of the kudomon in the grid
   private int yCoord;
 
+  // to store health points.
+  private int health;
+
+  // to store combat points.
+  private int combatPoints;
+
   //Constructor
-  public Kudomon(String reqSpecies, String reqType)
+  public Kudomon(String requiredSpecies, String requiredType,
+                                         int requiredCombatPoints)
   {
-    this.species = reqSpecies;
-    this.type = reqType;
+    this.species = requiredSpecies;
+    this.type = requiredType;
+
+    // all kudomon have the same health points
+    this.health = 50;
+    this.combatPoints = requiredCombatPoints;
   }// Constructor Kudomon
 
   //return x coordinate
@@ -41,6 +52,25 @@ public class Kudomon{
   public void setY(int requiredY){
     this.yCoord = requiredY;
   }// setY
+
+  public int getHealth(){
+    return this.health;
+  }// getHealth
+
+  public void reduceHealth(int value){
+    this.health -= value;
+  }// reduceHealth
+
+  public int getCombatPoints(){
+    return this.combatPoints;
+  }// getCombatPoints
+
+  public void inflictDamage(Kudomon other){
+    other.reduceHealth(this.combatPoints);
+    System.out.println(this+" infilicted "+this.combatPoints+
+                                            " damage points on "+ other);
+    System.out.println(other+" Health now: "+other.getHealth());
+  }// inflictDamage
 
   // overide toString to print species and type of kudomon
   @Override
