@@ -124,17 +124,31 @@ public class Game{
         kudomonToAttackSecond = trainerKudomons.get(option1-1);
       }// else
 
+      // if one of the kudomons is electric and the other is water, the electric
+      // kudomon's combat points get upgraded
+
+      if (kudomonToAttackFirst.getType().equals("electric") &&
+          kudomonToAttackSecond.getType().equals("water"))
+        kudomonToAttackFirst.setCombatPoints(12);
+      else if (kudomonToAttackSecond.getType().equals("electric") &&
+              kudomonToAttackFirst.getType().equals("water"))
+        kudomonToAttackSecond.setCombatPoints(12);
+
       // keep fighting as long as both kudomons have health
-      while ((kudomonToAttackFirst.getHealth() > 0) &&
-              (kudomonToAttackSecond.getHealth() > 0))
+      while ((kudomonToAttackSecond.getHealth() > 0) &&
+              (kudomonToAttackFirst.getHealth() > 0))
       {
         kudomonToAttackFirst.inflictDamage(kudomonToAttackSecond);
-        if (kudomonToAttackSecond.getHealth() <= 0)
+        if (kudomonToAttackSecond.getHealth() <= 0){
           System.out.println(kudomonToAttackFirst+" has won!");
+          break;
+        }// if
 
         kudomonToAttackSecond.inflictDamage(kudomonToAttackFirst);
-        if (kudomonToAttackFirst.getHealth() <= 0)
+        if (kudomonToAttackFirst.getHealth() <= 0){
           System.out.println(kudomonToAttackSecond+" has won!");
+          break;
+        }// if
 
       }// while
     }// if

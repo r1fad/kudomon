@@ -63,18 +63,28 @@ public class Kudomon{
     this.yCoord = requiredY;
   }// setY
 
+  // accessor method to get health
   public int getHealth(){
     return this.health;
   }// getHealth
 
+  // mutator method to reduce health by a given value
   public void reduceHealth(int value){
     this.health -= value;
   }// reduceHealth
 
+  // accessor method to get combat points
   public int getCombatPoints(){
     return this.combatPoints;
   }// getCombatPoints
 
+  // mutator method to set combat points.
+  //used when electric & water kudomons battle
+  public void setCombatPoints(int value){
+    this.combatPoints = value;
+  }// getCombatPoints
+
+  // method to reduce health of kudomon when another kudomon attacks
   public void inflictDamage(Kudomon other){
     other.reduceHealth(this.combatPoints);
     System.out.println(this+" infilicted "+this.combatPoints+
@@ -82,7 +92,7 @@ public class Kudomon{
     System.out.println(other+" Health now: "+other.getHealth());
   }// inflictDamage
 
-  // overide toString to print species and type of kudomon
+    // overide toString to print species and type of kudomon
   @Override
   public String toString(){
     return this.species+" ("+this.type+")";
